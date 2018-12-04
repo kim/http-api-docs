@@ -8,6 +8,7 @@ import (
 
 func main() {
 	endpoints := docs.AllEndpoints()
-	formatter := new(docs.MarkdownFormatter)
+	//formatter := new(docs.MarkdownFormatter)
+	formatter := new(docs.HuskallFormatter)
 	fmt.Println(docs.GenerateDocs(endpoints, formatter))
 }

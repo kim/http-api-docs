@@ -33,6 +33,7 @@ type Endpoint struct {
 	Description string
 	Response    string
 	Group       string
+	ResponseTyp reflect.Type
 }
 
 // Argument defines an IPFS RPC API endpoint argument.
@@ -98,6 +99,10 @@ func Endpoints(name string, cmd *cmds.Command) (endpoints []*Endpoint) {
 		}
 
 		res := buildResponse(cmd.Type)
+		resTyp := reflect.TypeOf(cmd.Type)
+		if cmd == nil {
+			resTyp = nil
+		}
 
 		endpoints = []*Endpoint{
 			&Endpoint{
@@ -106,6 +111,7 @@ func Endpoints(name string, cmd *cmds.Command) (endpoints []*Endpoint) {
 				Arguments:   arguments,
 				Options:     options,
 				Response:    res,
+				ResponseTyp: resTyp,
 			},
 		}
 	}
