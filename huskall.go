@@ -111,7 +111,7 @@ func (hs *HuskallFormatter) GenerateEndpointBlock(endp *Endpoint) string {
 			fmt.Fprintf(buf, "    :> ReqBody '[MultipartFormData] L.ByteString\n")
 		} else {
 			fmt.Fprintf(buf, "    %s", paramHaddock(arg))
-			fmt.Fprintf(buf, "    :> QueryParam' '[Required, Strict] \"%s\" %s\n", arg.Name, ArgTypes[arg.Type])
+			fmt.Fprintf(buf, "    :> QueryParam' '[Required, Strict] \"arg\" %s\n", ArgTypes[arg.Type])
 		}
 	}
 
