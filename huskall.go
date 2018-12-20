@@ -50,7 +50,19 @@ func haddock(start string, descr string, indent int) []byte {
 }
 
 func endpointHaddock(ep *Endpoint) []byte {
-	return haddock("-- | ", ep.Description, 0)
+	buf := new(bytes.Buffer)
+	buf.Write(haddock("-- | ", ep.Description, 0))
+
+	if ep.ResponseTyp != nil {
+		fmt.Fprintf(buf, "--\n-- Response example:\n--\n")
+		for _, line := range strings.Split(ep.Response, "\n") {
+			if len(line) > 0 {
+				fmt.Fprintf(buf, "-- > %s\n", line)
+			}
+		}
+	}
+
+	return buf.Bytes()
 }
 
 func paramHaddock(arg *Argument) []byte {
